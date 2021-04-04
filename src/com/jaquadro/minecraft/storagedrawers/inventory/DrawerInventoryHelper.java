@@ -18,13 +18,17 @@ public class DrawerInventoryHelper
             IDrawer drawer = group.getDrawer(i);
             if (!drawer.isEnabled())
                 continue;
-
-            while (drawer.getStoredItemCount() > 0) {
+            int totalItems = 0;
+            int totalStack = 0;
+            int threshold = 64;
+            int maxStacks = 8;
+            while (drawer.getStoredItemCount() > 0 && totalItems < threshold && totalStack < maxStacks) {
                 ItemStack stack = drawer.getStoredItemPrototype().copy();
                 int storedCount = drawer.getStoredItemCount();
                 int stackLimit = stack.getMaxStackSize();
                 int stackSize = Math.min(storedCount, stackLimit);
-
+                totalItems += stackSize;
+                totalStack += 1;
                 stack.setCount(stackSize);
                 if (stack.isEmpty())
                     break;

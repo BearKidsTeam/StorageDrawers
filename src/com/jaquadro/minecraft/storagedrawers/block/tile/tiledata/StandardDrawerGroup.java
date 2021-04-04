@@ -281,10 +281,17 @@ public abstract class StandardDrawerGroup extends TileDataShim implements IDrawe
 
             if (attrs.isUnlimitedVending())
                 return;
-
+            int threshold = 64;
+            int maxStacks = 8;
+            int maxCapacity = getMaxCapacity();
+            int stackCapacity = getStackCapacity();
+            if (stackCapacity > 0)
+                threshold = Math.min(threshold, maxCapacity / stackCapacity * maxStacks);
+            if (count >= threshold)
+                amount = threshold;
             count = Math.min(amount, getMaxCapacity());
             count = Math.max(count, 0);
-
+			
             if (count == 0 && !attrs.isItemLocked(LockAttribute.LOCK_POPULATED))
                 reset(notify);
             else {
