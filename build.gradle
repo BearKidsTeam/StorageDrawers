@@ -86,7 +86,7 @@ repositories {
     }
     maven { // HWYLA
         name = "HWYLA repo"
-        url "http://tehnut.info/maven"
+        url "https://maven.cil.li/"
     }
     maven {
         name = "CurseForge"
